@@ -1,6 +1,5 @@
 import React, {useContext} from 'react'
 import styled from 'styled-components'
-import ThemeContext from 'styled-components'
 
 
 const ThemeButton = ({onClick, currentTheme}) => {
