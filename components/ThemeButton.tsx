@@ -1,13 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
+import ThemeContext from 'styled-components'
 
 
-const ThemeButton = ({currentTheme, theme, onClick}) => {
+const ThemeButton = ({onClick, currentTheme}) => {
 	return(
 		<Container>
 			<ThemeCharger
 				onClick={onClick}
-				theme={theme}
 			>
 				{currentTheme}
 			</ThemeCharger>

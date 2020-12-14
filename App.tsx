@@ -1,40 +1,37 @@
-import React, {useContext , useState} from "react";
-import styled, {createGlobalStyle} from 'styled-components'
+import React, {useState} from "react";
+import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
 
-import ThemeContext from './context/theme'
+import themes from './context/themes'
 
 import ThemeButton from './components/ThemeButton'
 
 
 const App = () => {
-	const theme = useContext(ThemeContext)
 	const [isDark , setIsDark] = useState(false)
-	const themeName = isDark ? theme.dark : theme.light;
-	const currentTheme = isDark ? "Dark mode" : "Light Mode";
+	const themeName = isDark ? themes.dark : themes.light;
+	const currentTheme = isDark ? 'Dark Mode' : 'Light Mode';
 
 	const handleThemeChange = () => {
 		setIsDark(!isDark)
 	}
 
 	return(
-		<Container theme={themeName}>
-			<ThemeButton
-				onClick={handleThemeChange}
-				theme={themeName}
-				currentTheme={currentTheme}
-			/>
-		</Container>
+		<ThemeProvider theme={themeName}>
+			<Container>
+				<ThemeButton
+					onClick={handleThemeChange}
+					currentTheme={currentTheme}
+				/>
+			</Container>
+		</ThemeProvider>
 	)
 }
 
 const Root = () => {
-	const theme = useContext(ThemeContext)
 	return(
 		<>
 			<GlobalStyle />
-			<ThemeContext.Provider value={theme}>
-				<App/>
-			</ThemeContext.Provider>
+			<App/>
 		</>
 	)
 }

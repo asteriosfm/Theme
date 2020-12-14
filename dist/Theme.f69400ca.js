@@ -32289,21 +32289,12 @@ exports.ServerStyleSheet = Ue;
 "production" !== "development" && "undefined" != typeof navigator && "ReactNative" === navigator.product && console.warn("It looks like you've imported 'styled-components' on React Native.\nPerhaps you're looking to import 'styled-components/native'?\nRead more about this at https://www.styled-components.com/docs/basics#react-native"), "production" !== "development" && "test" !== "development" && (window["__styled-components-init__"] = window["__styled-components-init__"] || 0, 1 === window["__styled-components-init__"] && console.warn("It looks like there are several instances of 'styled-components' initialized in this application. This may cause dynamic styles to not render properly, errors during the rehydration process, a missing theme prop, and makes your application bigger without good reason.\n\nSee https://s-c.sh/2BAXzed for more info."), window["__styled-components-init__"] += 1);
 var _default = qe;
 exports.default = _default;
-},{"react-is":"node_modules/react-is/index.js","react":"node_modules/react/index.js","shallowequal":"node_modules/shallowequal/index.js","@emotion/stylis":"node_modules/@emotion/stylis/dist/stylis.browser.esm.js","@emotion/unitless":"node_modules/@emotion/unitless/dist/unitless.browser.esm.js","@emotion/is-prop-valid":"node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","hoist-non-react-statics":"node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","process":"C:/Users/aster/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"context/theme.ts":[function(require,module,exports) {
+},{"react-is":"node_modules/react-is/index.js","react":"node_modules/react/index.js","shallowequal":"node_modules/shallowequal/index.js","@emotion/stylis":"node_modules/@emotion/stylis/dist/stylis.browser.esm.js","@emotion/unitless":"node_modules/@emotion/unitless/dist/unitless.browser.esm.js","@emotion/is-prop-valid":"node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","hoist-non-react-statics":"node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","process":"C:/Users/aster/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"context/themes.ts":[function(require,module,exports) {
 "use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var react_1 = __importDefault(require("react"));
-
 var themes = {
   light: {
     text: "#000000",
@@ -32316,9 +32307,8 @@ var themes = {
     border: "2px solid orange"
   }
 };
-var ThemeContext = react_1.default.createContext(themes);
-exports.default = ThemeContext;
-},{"react":"node_modules/react/index.js"}],"components/ThemeButton.tsx":[function(require,module,exports) {
+exports.default = themes;
+},{}],"components/ThemeButton.tsx":[function(require,module,exports) {
 "use strict";
 
 var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
@@ -32348,12 +32338,10 @@ var react_1 = __importDefault(require("react"));
 var styled_components_1 = __importDefault(require("styled-components"));
 
 var ThemeButton = function ThemeButton(_a) {
-  var currentTheme = _a.currentTheme,
-      theme = _a.theme,
-      onClick = _a.onClick;
+  var onClick = _a.onClick,
+      currentTheme = _a.currentTheme;
   return react_1.default.createElement(Container, null, react_1.default.createElement(ThemeCharger, {
-    onClick: onClick,
-    theme: theme
+    onClick: onClick
   }, currentTheme));
 };
 
@@ -32433,38 +32421,32 @@ var react_1 = __importStar(require("react"));
 
 var styled_components_1 = __importStar(require("styled-components"));
 
-var theme_1 = __importDefault(require("./context/theme"));
+var themes_1 = __importDefault(require("./context/themes"));
 
 var ThemeButton_1 = __importDefault(require("./components/ThemeButton"));
 
 var App = function App() {
-  var theme = react_1.useContext(theme_1.default);
-
   var _a = react_1.useState(false),
       isDark = _a[0],
       setIsDark = _a[1];
 
-  var themeName = isDark ? theme.dark : theme.light;
-  var currentTheme = isDark ? "Dark mode" : "Light Mode";
+  var themeName = isDark ? themes_1.default.dark : themes_1.default.light;
+  var currentTheme = isDark ? 'Dark Mode' : 'Light Mode';
 
   var handleThemeChange = function handleThemeChange() {
     setIsDark(!isDark);
   };
 
-  return react_1.default.createElement(Container, {
+  return react_1.default.createElement(styled_components_1.ThemeProvider, {
     theme: themeName
-  }, react_1.default.createElement(ThemeButton_1.default, {
+  }, react_1.default.createElement(Container, null, react_1.default.createElement(ThemeButton_1.default, {
     onClick: handleThemeChange,
-    theme: themeName,
     currentTheme: currentTheme
-  }));
+  })));
 };
 
 var Root = function Root() {
-  var theme = react_1.useContext(theme_1.default);
-  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(GlobalStyle, null), react_1.default.createElement(theme_1.default.Provider, {
-    value: theme
-  }, react_1.default.createElement(App, null)));
+  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(GlobalStyle, null), react_1.default.createElement(App, null));
 };
 
 var Container = styled_components_1.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n\twidth:100%;\n\theight:100%;\n\tdisplay:flex;\n\tjustify-content:center;\n\talign-items:center;\n\tbackground-color:", ";\n\tmargin:0;\n\tpadding:0;\n"], ["\n\twidth:100%;\n\theight:100%;\n\tdisplay:flex;\n\tjustify-content:center;\n\talign-items:center;\n\tbackground-color:", ";\n\tmargin:0;\n\tpadding:0;\n"])), function (_a) {
@@ -32474,7 +32456,7 @@ var Container = styled_components_1.default.div(templateObject_1 || (templateObj
 var GlobalStyle = styled_components_1.createGlobalStyle(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  html {\n    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */\n    font-size-adjust: 100%;\n    height: 100%;\n  }\n  body {\n    margin: 0;\n    padding: 0;\n    height: 100%;\n  }\n  #__root {\n    height: 100%;\n\t\twidth:100%;\n  }\n  a {\n    text-decoration: none;\n  }\n  a:hover {\n    text-decoration: underline;\n  }\n"], ["\n  html {\n    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */\n    font-size-adjust: 100%;\n    height: 100%;\n  }\n  body {\n    margin: 0;\n    padding: 0;\n    height: 100%;\n  }\n  #__root {\n    height: 100%;\n\t\twidth:100%;\n  }\n  a {\n    text-decoration: none;\n  }\n  a:hover {\n    text-decoration: underline;\n  }\n"])));
 exports.default = Root;
 var templateObject_1, templateObject_2;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./context/theme":"context/theme.ts","./components/ThemeButton":"components/ThemeButton.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./context/themes":"context/themes.ts","./components/ThemeButton":"components/ThemeButton.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -32524,7 +32506,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56598" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60984" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
